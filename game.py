@@ -4,7 +4,9 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def hello_world():
+def run():
+    from core.db import get_db
+    get_db()
     return 'Hello World!'
 
 
