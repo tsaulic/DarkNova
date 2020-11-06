@@ -19,8 +19,14 @@ def init_db():
 
 
 def populate_mock_db():
+    db.drop_all()
+    db.create_all()
     sol = Sector(id=0, name='Sol')
     sector_1 = Sector(id=1, name="")
+    sector_2 = Sector(id=2, name="")
+    sector_3 = Sector(id=3, name="")
+    sector_4 = Sector(id=4, name="")
+    sector_5 = Sector(id=5, name="")
     db.session.add(Player(
         username="Rincewind",
         email="example@example.com",
@@ -39,6 +45,10 @@ def populate_mock_db():
         ship_name="Test ship",
         sector=sol
     ))
+    db.session.add(sector_2)
+    db.session.add(sector_3)
+    db.session.add(sector_4)
+    db.session.add(sector_5)
     db.session.commit()
 
 
