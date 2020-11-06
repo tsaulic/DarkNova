@@ -5,6 +5,12 @@ from core import app, init_db, Player, populate_mock_db
 
 @app.route("/")
 def game_route():
+    from sqlalchemy import exc
+    try:
+        Player.query.all()
+    except exc.OperationalError:
+        init_db()
+
     players = Player.query.all()
     players_json = {}
     for player in players:
