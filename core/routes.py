@@ -8,6 +8,7 @@ def game_route():
     from sqlalchemy import exc
     player_name = request.args.get('player')
     move = request.args.get('move')
+    active_player = None
     players_in_sector = ''
 
     if player_name is not None:
