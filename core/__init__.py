@@ -2,7 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///../data/game.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///:memory:"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
@@ -18,20 +18,15 @@ def init_db():
     db.create_all()
 
 
-def populate_mock_db():
+def populate_mock_db(sectors_value):
     db.drop_all()
     db.create_all()
     sol = Sector(id=0, name='Sol')
-    sector_1 = Sector(id=1, name="")
-    sector_2 = Sector(id=2, name="")
-    sector_3 = Sector(id=3, name="")
-    sector_4 = Sector(id=4, name="")
-    sector_5 = Sector(id=5, name="")
     db.session.add(Player(
         username="Rincewind",
         email="example@example.com",
         ship_name="The Luggage",
-        sector=sector_1
+        sector=sol
     ))
     db.session.add(Player(
         username="Unknown",
@@ -45,10 +40,9 @@ def populate_mock_db():
         ship_name="Test ship",
         sector=sol
     ))
-    db.session.add(sector_2)
-    db.session.add(sector_3)
-    db.session.add(sector_4)
-    db.session.add(sector_5)
+
+    for sector in range(1, sectors_value):
+        db.session.add(Sector(id=sector, name=""))
     db.session.commit()
 
 

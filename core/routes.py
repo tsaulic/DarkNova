@@ -1,6 +1,7 @@
 from flask import render_template, request
 
-from core import app, Player, populate_mock_db, Sector, db
+from core import app, populate_mock_db, db
+from core.models import Player, Sector
 
 
 @app.route('/')
@@ -48,7 +49,18 @@ def game_route():
 
 @app.route('/populate')
 def populate_mock_db_route():
-    populate_mock_db()
+    sector_value = request.args.get('sectors')
+
+    try:
+        sector_value = int(sector_value)
+    except ValueError:
+        return 'Parameter must be of type int'
+
+    if sector_value is not None:
+        populate_mock_db(sector_value)
+    else:
+        populate_mock_db(5)
+
     return 'success'
 
 
