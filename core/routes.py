@@ -1,10 +1,11 @@
 from flask import render_template, request
 
+from config import version
 from core import app, populate_mock_db, db
 from core.models import Player, Sector
 
 
-@app.route('/')
+@app.route('/game')
 def game_route():
     from sqlalchemy import exc
     player_name = request.args.get('player')
@@ -40,7 +41,7 @@ def game_route():
 
     return render_template(
         'index.html',
-        title="Test",
+        title='DarkNova version: {}'.format(version),
         content='Playing as {} aboard {} in sector {}; Other ships here: {}'.format(
             active_player.username,
             active_player.ship_name,
