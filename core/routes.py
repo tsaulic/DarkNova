@@ -15,15 +15,6 @@ def game_route():
     if player_name is not None:
         active_player = Player.query.filter_by(username=player_name).first()
 
-    if active_player is not None:
-        for player in active_player.sector.players:
-            if player.username != player_name:
-                players_in_sector += "{} ,".format(player.username).strip().rstrip(',')
-
-        if players_in_sector == "": players_in_sector = "None"
-    else:
-        return render_error("Invalid player")
-
     if move is not None:
         active_player.sector = Sector.query.filter_by(id=move).first()
         try:
@@ -32,6 +23,15 @@ def game_route():
             return render_error("Invalid sector")
         except exc.IntegrityError:
             return render_error("Invalid sector")
+
+    if active_player is not None:
+        for player in active_player.sector.players:
+            if player.username != player_name:
+                players_in_sector += "{} ,".format(player.username).strip().rstrip(',')
+
+        if players_in_sector == "": players_in_sector = "None"
+    else:
+        return render_error("Invalid player")
 
     sector_name = active_player.sector.name
 
@@ -49,17 +49,20 @@ def game_route():
 
 @app.route('/populate')
 def populate_mock_db_route():
+    sectors_default = 5
     sector_value = request.args.get('sectors')
 
     try:
         sector_value = int(sector_value)
     except ValueError:
         return 'Parameter must be of type int'
+    except TypeError:
+        sector_value = sectors_default
 
     if sector_value is not None:
         populate_mock_db(sector_value)
     else:
-        populate_mock_db(5)
+        populate_mock_db(sectors_default)
 
     return 'success'
 
