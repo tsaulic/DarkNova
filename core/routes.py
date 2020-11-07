@@ -35,14 +35,16 @@ def game_route():
 
     sector_name = active_player.sector.name
 
+    sector_info = '{} ({})'.format(active_player.sector.id, sector_name) if sector_name != "" \
+        else active_player.sector.id
+
     return render_template(
         'index.html',
         title="Test",
-        content='Playing as {} aboard {} in sector {} {}; Other ships here: {}'.format(
+        content='Playing as {} aboard {} in sector {}; Other ships here: {}'.format(
             active_player.username,
             active_player.ship_name,
-            active_player.sector.id,
-            '({})'.format(sector_name) if sector_name != "" else '{}'.format(sector_name),
+            sector_info,
             players_in_sector)
     )
 
