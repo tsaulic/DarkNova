@@ -32,13 +32,16 @@ def game_route():
         except exc.IntegrityError:
             return render_error("Invalid sector")
 
+    sector_name = active_player.sector.name
+
     return render_template(
         'index.html',
         title="Test",
-        content='Playing as {} aboard {} in sector {}; Other ships here: {}'.format(
+        content='Playing as {} aboard {} in sector {} {}; Other ships here: {}'.format(
             active_player.username,
             active_player.ship_name,
             active_player.sector.id,
+            '({})'.format(sector_name) if sector_name != "" else '{}'.format(sector_name),
             players_in_sector)
     )
 
