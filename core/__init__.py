@@ -1,11 +1,15 @@
+from datetime import timedelta
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from config import game_db_path
+from config import game_db_path, secret_key
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = game_db_path
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.secret_key = secret_key
+app.permanent_session_lifetime = timedelta(minutes=5)
 db = SQLAlchemy(app)
 
 from core.models import Player, Sector
