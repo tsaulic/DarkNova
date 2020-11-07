@@ -2,9 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <title>{{ title }}</title>
 </head>
 <body>
+<div class="background-container">
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+</div>
+<div class="content">
     {{ content }}
+</div>
 </body>
 </html>
