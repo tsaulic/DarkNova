@@ -8,6 +8,8 @@ class Player(db.Model):
     ship_name = db.Column(db.String(32), unique=True, nullable=False)
     sector_id = db.Column(db.Integer, db.ForeignKey('sector.id'), nullable=False)
     sector = db.relationship('Sector', backref=db.backref('players', lazy=True))
+    planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'), nullable=True)
+    planets = db.relationship('Planet', backref=db.backref('player', lazy=True))
 
     def serialize(self):
         return {
@@ -15,7 +17,8 @@ class Player(db.Model):
             'username': self.username,
             'email': self.email,
             'ship_name': self.ship_name,
-            'sector': self.sector.serialize()
+            'sector': self.sector.serialize(),
+            'planets': self.planets.serialize()
         }
 
     def __repr__(self):
@@ -30,8 +33,28 @@ class Sector(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'players': [player.username for player in self.players]
+            'players': [player.username for player in self.players],
+            'planets': [planet.name for planet in self.planets]
         }
 
     def __repr__(self):
         return '<Sector %r with players: %r>' % (self.name, self.players)
+
+
+class Planet(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(32), nullable=False)
+    sector_id = db.Column(db.Integer, db.ForeignKey('sector.id'), nullable=False)
+    sector = db.relationship('Sector', backref=db.backref('planets', lazy=True))
+    owner = db.relationship('Player', backref=db.backref('player', lazy=True))
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'sector': self.sector.id,
+            'owner': self.owner
+        }
+
+    def __repr__(self):
+        return '<Planet %r in sector: %r owned by: %r>' % (self.name, self.sector, self.owner)

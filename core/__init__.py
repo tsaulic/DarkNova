@@ -1,4 +1,5 @@
 from datetime import timedelta
+from random import randrange
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -12,7 +13,7 @@ app.secret_key = secret_key
 app.permanent_session_lifetime = timedelta(minutes=5)
 db = SQLAlchemy(app)
 
-from core.models import Player, Sector
+from core.models import Player, Sector, Planet
 
 
 def init_db():
@@ -48,8 +49,11 @@ def populate_mock_db(sectors_value):
     ))
 
     for sector in range(1, sectors_value):
-        db.session.add(Sector(id=sector, name=""))
+        db.session.add(Sector(id=sector, name=''))
+        if has_planet() and sector != 0: db.session.add(Planet(name='Unknown planet', sector_id=sector))
     db.session.commit()
 
 
-import core.routes
+def has_planet():
+    rand_num = randrange(9)
+    return False if rand_num >= 3 else True
