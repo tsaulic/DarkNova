@@ -1,6 +1,5 @@
-from flask import url_for
+from flask import url_for, redirect
 from sqlalchemy import exc
-from werkzeug.utils import redirect
 
 from core import db
 from core.render_static import render_error
@@ -10,7 +9,7 @@ def take(planet_id, planets, active_player):
     try:
         planet_id = int(planet_id)
     except ValueError:
-        return 'Parameter take must be of type int'
+        return render_error('Parameter take must be of type int')
 
     for planet in planets:
         if planet_id == planet.id and planet.owner == []:
@@ -25,3 +24,5 @@ def take(planet_id, planets, active_player):
                 return render_error("Invalid planet")
             except exc.IntegrityError:
                 return render_error("Invalid planet")
+    else:
+        return redirect(url_for('play'))

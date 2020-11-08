@@ -1,6 +1,5 @@
-from flask import url_for
+from flask import url_for, redirect
 from sqlalchemy import exc
-from werkzeug.utils import redirect
 
 from core import Sector, db
 from core.render_static import render_error
@@ -17,3 +16,5 @@ def move(sector, active_player):
             return render_error("Invalid sector")
         except exc.IntegrityError:
             return render_error("Invalid sector")
+    else:
+        return render_error("Sector must not be None")

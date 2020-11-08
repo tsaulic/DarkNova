@@ -44,8 +44,10 @@ def play():
         return render_error("Invalid player")
 
     for action in actions:
-        if action is 'move': return move(actions['move'], active_player)
-        if action is 'take': return take(actions['take'], planets, active_player)
+        if action is 'move':
+            return move(actions['move'], active_player)
+        if action is 'take':
+            return take(actions['take'], planets, active_player)
 
     sector_name = active_player.sector.name
     sector_info = '{} ({})'.format(active_player.sector.id, sector_name) if sector_name != "" \
