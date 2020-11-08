@@ -1,5 +1,9 @@
-import os, semver
+import os
+import semver
 
-version = semver.VersionInfo.parse('0.2.0-alpha+build.7')
+version = semver.VersionInfo.parse('0.2.1-alpha+build.8')
 game_db_path = 'sqlite:///../game.sqlite'
 secret_key = os.environ.get("DARKNOVA_SECRET_KEY") or "test"
+
+# game related stuff
+sectors_default_amount = 100

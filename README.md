@@ -15,7 +15,7 @@ DONE:
 How to test it out:
  * run the Flask server
  * navigate to `/populate{?sectors=n}`; use optional sectors parameter to determine how many sectors to create
- * try `/login` and to login as either `Test` or `Unknown`
+ * try `/` and to login as either `Test` or `Unknown`
  * to move `/game?move=<sector id>`
  * to take planets `/game?take=<planet id>`
  
