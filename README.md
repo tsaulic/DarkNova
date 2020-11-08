@@ -4,15 +4,18 @@ This version is written in Python, utilising Flask for both the backend and serv
 We're aiming for the content to be as modern as possible, but also simple. Pure CSS/HTML with minimal JavaScript.
 
 TODO:
- * pretty much everything at this point :D
- 
+ * way too much
+
 DONE:
- * basic integration and relationship between very simple Player and Sector classes
- * basic generation of a universe (`n` number of sectors with 0 always being 'Sol')
+ * basic integration and relationship between very simple Player, Sector and Planet classes
+ * basic generation of a universe (`n` number of sectors with 0 always being 'Sol') with random unowned planets
  * basic movement of players via a query parameter
+ * allowing players to take unowned planets
  
 How to test it out:
  * run the Flask server
- * navigate to `/populate{?sectors=n}` with optional number of sectors parameter
- * try `/?player=Test` and to move `/?player=Test&move=n`
+ * navigate to `/populate{?sectors=n}`; use optional sectors parameter to determine how many sectors to create
+ * try `/login` and to login as either `Test` or `Unknown`
+ * to move `/game?move=<sector id>`
+ * to take planets `/game?take=<planet id>`
  
