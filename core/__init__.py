@@ -50,11 +50,9 @@ def populate_mock_db(sectors_value):
 
     for sector in range(1, sectors_value):
         db.session.add(Sector(id=sector, name=''))
-        if has_planet(8) and sector != 0: db.session.add(Planet(name='Unknown planet', sector_id=sector))
-        if has_planet(8) and sector != 0: db.session.add(Planet(name='Unknown planet', sector_id=sector))
-        if has_planet(8) and sector != 0: db.session.add(Planet(name='Unknown planet', sector_id=sector))
-        if has_planet(8) and sector != 0: db.session.add(Planet(name='Unknown planet', sector_id=sector))
-        if has_planet(8) and sector != 0: db.session.add(Planet(name='Unknown planet', sector_id=sector))
+        if has_planet(4) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
+        if has_planet(2) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
+        if has_planet(0) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
     db.session.commit()
 
 

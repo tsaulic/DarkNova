@@ -8,4 +8,10 @@ if __name__ == '__main__':
     print(core.routes.login)
     print(core.routes.populate)
     print(core.routes.play)
-    app.run(debug=True)
+    # app.run(port=9909, debug=False)
+
+    # does not work on Windows, use:
+    # $env:FLASK_APP="game.py"
+    # flask run --host=0.0.0.0 --port=9909
+    # and turn off debug (debug=False)
+    app.run(host='0.0.0.0')

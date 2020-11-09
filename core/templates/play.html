@@ -8,18 +8,22 @@
         {% if planets|length > 0 %}
             <div class="planet-row">
                 {% for planet in planets %}
-
                     {% if planet.owner == None %}
                         <div class="planet-column">
                             <img class="planet-unowned"
                                  src="{{ url_for('static', filename='img/planet_unowned.svg') }}">
                             <button type="button" class="button capture"
                                     onclick="window.location='/play?capture={{ planet.id }}'">
-                                Capture '{{ planet.name }}'
+                                Capture
                             </button>
                         </div>
+                    {% else %}
+                        <div class="planet-column">
+                            <img class="planet-owned"
+                                 src="{{ url_for('static', filename='img/planet_owned.svg') }}">
+                            <span class="planet-name">{{ planet.name }}</span>
+                        </div>
                     {% endif %}
-
                 {% endfor %}
             </div>
         {% endif %}

@@ -95,11 +95,15 @@ body {
 }
 
 .button.move {
+    border: 1px dashed azure;
+    stroke: azure;
     background-color: #8b24cd;
 }
 
 .button.capture {
-    background-color: #12c124;
+    border: 1px dashed azure;
+    color: chartreuse;
+    background-color: #090909;
 }
 
 .planet-row {
@@ -108,28 +112,45 @@ body {
     flex-wrap: wrap;
     width: auto;
     height: auto;
+    justify-content: space-evenly;
 }
 
 .game-column {
     background: transparent;
     flex-direction: column;
+    margin-right: 0.5em;
     flex: 1;
 }
 
 .action-column {
     background: transparent;
     flex-direction: column;
+    margin-left: 0.5em;
     flex: 0 0 16em;
 }
 
 .planet-column {
     background: transparent;
+    display: flex;
     flex-direction: column;
-    flex: 1;
+    align-items: center;
+    margin: 0 1em 0 1em;
 }
 
 .planet-unowned {
     height: 4em;
     width: 4em;
     margin: 1em;
+}
+
+.planet-owned {
+    height: 4em;
+    width: 4em;
+    margin: 1em;
+}
+
+.planet-name {
+    font-size: 14px;
+    color: azure;
+    font-weight: bold;
 }
