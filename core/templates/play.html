@@ -5,19 +5,30 @@
     <div class='game-column'>
         {{ content }}
 
-        {% for planet in planets %}
-            {% if planet.owner == [] %}
-                <button type="button" class="take-button" onclick="window.location='/play?take={{ planet.id }}'">Take
-                    '{{ planet.name }}'
-                </button>
-            {% endif %}
-        {% endfor %}
+        {% if planets|length > 0 %}
+            <div class="planet-row">
+                {% for planet in planets %}
+
+                    {% if planet.owner == [] %}
+                        <div class="planet-column">
+                            <img class="planet-unowned"
+                                 src="{{ url_for('static', filename='img/planet_unowned.svg') }}">
+                            <button type="button" class="button capture"
+                                    onclick="window.location='/play?capture={{ planet.id }}'">
+                                Capture '{{ planet.name }}'
+                            </button>
+                        </div>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
     <div class="action-column">
-        <button type="button" class="move-button" onclick="window.location='/play?move={{ sector - 1 }}'">Previous
+        <button type="button" class="button move" onclick="window.location='/play?move={{ sector - 1 }}'">Previous
             sector
         </button>
-        <button type="button" class="move-button" onclick="window.location='/play?move={{ sector + 1 }}'">Next sector
+        <button type="button" class="button move" onclick="window.location='/play?move={{ sector + 1 }}'">Next sector
         </button>
     </div>
 {% endblock %}

@@ -4,7 +4,7 @@ from sqlalchemy import exc
 from config import version
 from core import app
 from core.actions.move import move
-from core.actions.take import take
+from core.actions.capture import capture
 from core.models import Player, Sector
 from core.render_static import render_error
 
@@ -20,8 +20,8 @@ def play():
 
     if request.args.get('move') is not None:
         actions['move'] = request.args.get('move')
-    if request.args.get('take') is not None:
-        actions['take'] = request.args.get('take')
+    if request.args.get('capture') is not None:
+        actions['capture'] = request.args.get('capture')
 
     active_player = None
     players_in_sector = None
@@ -46,8 +46,8 @@ def play():
     for action in actions:
         if action is 'move':
             return move(actions['move'], active_player)
-        if action is 'take':
-            return take(actions['take'], planets, active_player)
+        if action is 'capture':
+            return capture(actions['capture'], planets, active_player)
 
     sector_name = active_player.sector.name
     sector_info = '{} ({})'.format(active_player.sector.id, sector_name) if sector_name != "" \
