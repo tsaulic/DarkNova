@@ -1,66 +1,123 @@
 body {
-  font-family: 'Inconsolata', monospace;
+    font-family: 'Inconsolata', monospace;
 }
 
 @keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px); }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px); } }
+    from {
+        -webkit-transform: translate3d(0px, 0px, 0px);
+    }
+    to {
+        -webkit-transform: translate3d(1000px, 0px, 0px);
+    }
+}
 
 @-webkit-keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px); }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px); } }
+    from {
+        -webkit-transform: translate3d(0px, 0px, 0px);
+    }
+    to {
+        -webkit-transform: translate3d(1000px, 0px, 0px);
+    }
+}
 
 @-moz-keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px); }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px); } }
+    from {
+        -webkit-transform: translate3d(0px, 0px, 0px);
+    }
+    to {
+        -webkit-transform: translate3d(1000px, 0px, 0px);
+    }
+}
 
 @-webkit-keyframes move-background {
-  from {
-    -webkit-transform: translate3d(0px, 0px, 0px); }
-  to {
-    -webkit-transform: translate3d(1000px, 0px, 0px); } }
+    from {
+        -webkit-transform: translate3d(0px, 0px, 0px);
+    }
+    to {
+        -webkit-transform: translate3d(1000px, 0px, 0px);
+    }
+}
 
 .background-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0; }
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
 
 .stars {
-  background: black url("img/stars.png") repeat;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: block;
-  z-index: 0; }
+    background: black url("img/stars.png") repeat;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    z-index: 0;
+}
 
 .twinkling {
-  width: 10000px;
-  height: 100%;
-  background: transparent url("img/twinkling.png") repeat;
-  background-size: 1000px 1000px;
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  z-index: 2;
-  -moz-animation: move-background 70s linear infinite;
-  -ms-animation: move-background 70s linear infinite;
-  -o-animation: move-background 70s linear infinite;
-  -webkit-animation: move-background 70s linear infinite;
-  animation: move-background 70s linear infinite; }
+    width: 10000px;
+    height: 100%;
+    background: transparent url("img/twinkling.png") repeat;
+    background-size: 1000px 1000px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+    -moz-animation: move-background 70s linear infinite;
+    -ms-animation: move-background 70s linear infinite;
+    -o-animation: move-background 70s linear infinite;
+    -webkit-animation: move-background 70s linear infinite;
+    animation: move-background 70s linear infinite;
+}
 
 .content {
-  position: absolute;
-  z-index: 4;
-  color: aliceblue;
+    position: absolute;
+    z-index: 4;
+    display: flex;
+    color: azure;
+    width: 100%;
+}
+
+.move-button {
+    background-color: #8b24cd; /* Green */
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.take-button {
+    background-color: #12c124; /* Green */
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 100%;
+}
+
+.game-column {
+    background: transparent;
+    flex: 1;
+}
+
+.action-column {
+    background: transparent;
+    flex: 0 0 16em;
 }

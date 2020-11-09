@@ -59,12 +59,15 @@ def play():
         planets_in_sector = None
 
     return render_template(
-        'game.html',
+        'play.html',
         title='DarkNova version: {}'.format(version),
         content='Playing as {} aboard {} in sector {}; Other ships here: {}; Planets: {}'.format(
             active_player.username,
             active_player.ship_name,
             sector_info,
             players_in_sector,
-            planets_in_sector)
+            planets_in_sector),
+        player=active_player,
+        sector=active_player.sector.id,
+        planets=planets
     )
