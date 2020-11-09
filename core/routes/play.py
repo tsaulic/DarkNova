@@ -1,3 +1,4 @@
+import flask
 from flask import render_template, request, session, redirect, url_for, Blueprint
 from sqlalchemy import exc
 
@@ -5,7 +6,6 @@ from configuration import version
 from core.actions.capture import capture
 from core.actions.move import move
 from core.models import Player, Sector
-from core.render_static import render_error
 from core.routes.populate import insert_player
 
 bp = Blueprint('play', __name__)
@@ -42,9 +42,9 @@ def play():
         try:
             active_player = Player.query.filter_by(username=player_name).first()
         except exc.OperationalError:
-            return render_error('Please create the DB first')
+            flask.abort(400, 'Please create the DB first')
         except Exception:
-            return render_error('Failed to fetch player')
+            flask.abort(400, 'Failed to fetch player')
 
     if active_player is not None:
         planets = Sector.query.filter_by(id=active_player.sector.id).first().planets

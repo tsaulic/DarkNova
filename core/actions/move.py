@@ -1,8 +1,10 @@
+import sqlite3
+
+import flask
 from flask import url_for, redirect
 from sqlalchemy import exc
 
 from core import Sector, db
-from core.render_static import render_error
 
 
 def move(sector, active_player):
@@ -11,11 +13,17 @@ def move(sector, active_player):
 
         try:
             db.session.commit()
-        except AttributeError:
-            return render_error("Invalid sector")
-        except exc.IntegrityError:
-            return render_error("Invalid sector")
+        except AssertionError as err:
+            db.session.rollback()
+            flask.abort(409, err)
+        except (exc.IntegrityError, sqlite3.IntegrityError) as err:
+            db.session.rollback()
+            flask.abort(409, err.orig)
+        except Exception as err:
+            db.session.rollback()
+            flask.abort(500, err)
         finally:
+            db.session.close()
             return redirect(url_for('play.play'))
     else:
-        return render_error("Sector must not be None")
+        flask.abort(500, 'Sector must not be None')

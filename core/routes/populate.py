@@ -1,10 +1,12 @@
+import sqlite3
 from random import randrange
 
+import flask
 from flask import request, Blueprint, redirect, url_for
+from sqlalchemy import exc
 
 from configuration import sectors_default_amount
 from core import db, Sector, Planet, Player
-from core.render_static import render_error
 
 bp = Blueprint('populate', __name__)
 
@@ -46,7 +48,17 @@ def insert_player(player_name, ship_name):
 
     try:
         db.session.commit()
+    except AssertionError as err:
+        db.session.rollback()
+        flask.abort(409, err)
+    except (exc.IntegrityError, sqlite3.IntegrityError) as err:
+        db.session.rollback()
+        flask.abort(409, err.orig)
+    except Exception as err:
+        db.session.rollback()
+        flask.abort(500, err)
     finally:
+        db.session.close()
         return redirect(url_for('play.play'))
 
 
@@ -57,7 +69,7 @@ def populate():
     try:
         sector_value = int(sector_value)
     except ValueError:
-        return render_error('Parameter sector must be of type int')
+        flask.abort(400, 'Parameter sector must be of type int')
     except TypeError:
         sector_value = sectors_default_amount
 
