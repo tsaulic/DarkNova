@@ -4,7 +4,7 @@ from random import randrange
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from config import game_db_path, secret_key
+from configuration import game_db_path, secret_key
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = game_db_path
@@ -14,6 +14,12 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 db = SQLAlchemy(app)
 
 from core.models import Player, Sector, Planet
+
+
+def create_app():
+    app = Flask(__name__)
+    app.debug = False
+    return app
 
 
 def init_db():

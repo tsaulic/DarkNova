@@ -1,6 +1,6 @@
 from flask import request
 
-from config import sectors_default_amount
+from configuration import sectors_default_amount
 from core import app, populate_mock_db
 from core.render_static import render_error
 

@@ -1,7 +1,7 @@
 import core.routes.login
 import core.routes.play
 import core.routes.populate
-from core import app
+from core import create_app
 
 if __name__ == '__main__':
     # do this until I fix my app :( or use Blueprints?
@@ -14,4 +14,7 @@ if __name__ == '__main__':
     # $env:FLASK_APP="game.py"
     # flask run --host=0.0.0.0 --port=9909
     # and turn off debug (debug=False)
-    app.run(host='0.0.0.0')
+    app = create_app()
+    app.run(host='0.0.0.0', port=80, debug=False)
+else:
+    gunicorn_app = create_app()

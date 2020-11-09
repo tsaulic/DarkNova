@@ -1,7 +1,7 @@
 from flask import render_template, request, session, redirect, url_for
 from sqlalchemy import exc
 
-from config import version
+from configuration import version
 from core import app
 from core.actions.move import move
 from core.actions.capture import capture
@@ -44,9 +44,9 @@ def play():
         return render_error("Invalid player")
 
     for action in actions:
-        if action is 'move':
+        if action == 'move':
             return move(actions['move'], active_player)
-        if action is 'capture':
+        if action == 'capture':
             return capture(actions['capture'], planets, active_player)
 
     sector_name = active_player.sector.name
