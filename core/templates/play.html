@@ -6,9 +6,9 @@
         {{ content }}
 
         {% for planet in planets %}
-            {% if player.id != planet.owner.id and planet.owner == [] %}
+            {% if planet.owner == [] %}
                 <button type="button" class="take-button" onclick="window.location='/play?take={{ planet.id }}'">Take
-                    planet
+                    '{{ planet.name }}'
                 </button>
             {% endif %}
         {% endfor %}
