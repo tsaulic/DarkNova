@@ -16,12 +16,6 @@ db = SQLAlchemy(app)
 from core.models import Player, Sector, Planet
 
 
-def create_app():
-    app = Flask(__name__)
-    app.debug = False
-    return app
-
-
 def init_db():
     """For use on command line for setting up
     the database.
@@ -65,3 +59,12 @@ def populate_mock_db(sectors_value):
 def has_planet(cutoff):
     rand_num = randrange(9)
     return False if rand_num > cutoff else True
+
+
+import core.routes.login
+import core.routes.play
+import core.routes.populate
+
+print(core.routes.login)
+print(core.routes.play)
+print(core.routes.populate)

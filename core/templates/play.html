@@ -29,9 +29,11 @@
         {% endif %}
     </div>
     <div class="action-column">
-        <button type="button" class="button move" onclick="window.location='/play?move={{ sector - 1 }}'">Previous
-            sector
-        </button>
+        {% if sector > 0 %}
+            <button type="button" class="button move" onclick="window.location='/play?move={{ sector - 1 }}'">Previous
+                sector
+            </button>
+        {% endif %}
         <button type="button" class="button move" onclick="window.location='/play?move={{ sector + 1 }}'">Next sector
         </button>
     </div>

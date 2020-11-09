@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, redirect, url_for
 
 from configuration import sectors_default_amount
 from core import app, populate_mock_db
@@ -21,4 +21,4 @@ def populate():
     else:
         populate_mock_db(sectors_default_amount)
 
-    return 'success'
+    return redirect(url_for('play'))

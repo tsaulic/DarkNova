@@ -11,10 +11,11 @@ def move(sector, active_player):
 
         try:
             db.session.commit()
-            return redirect(url_for('play'))
         except AttributeError:
             return render_error("Invalid sector")
         except exc.IntegrityError:
             return render_error("Invalid sector")
+        finally:
+            return redirect(url_for('play'))
     else:
         return render_error("Sector must not be None")

@@ -21,10 +21,11 @@ def capture(planet_id, planets, active_player):
 
             try:
                 db.session.commit()
-                return redirect(url_for('play'))
             except AttributeError:
                 return render_error("Invalid planet")
             except exc.IntegrityError:
                 return render_error("Invalid planet")
+            finally:
+                return redirect(url_for('play'))
     else:
         return redirect(url_for('play'))
