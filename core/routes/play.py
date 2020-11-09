@@ -52,7 +52,7 @@ def play():
             players_in_sector = ', '.join(player.username for player in active_player.sector.players
                                           if player.username != active_player.username)
     else:
-        return render_error("Invalid player")
+        return flask.abort(500, 'Invalid player')
 
     for action in actions:
         if action == 'move':
