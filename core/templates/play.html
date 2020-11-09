@@ -8,7 +8,7 @@
         {% if planets|length > 0 %}
             <div class="planet-row">
                 {% for planet in planets %}
-                    {% if planet.owner == None %}
+                    {% if planet.owner == none %}
                         <div class="planet-column">
                             <img class="planet-unowned"
                                  src="{{ url_for('static', filename='img/planet_unowned.svg') }}">
@@ -29,12 +29,15 @@
         {% endif %}
     </div>
     <div class="action-column">
-        {% if sector > 0 %}
+        {% if sector is not none and sector > 0 %}
             <button type="button" class="button move" onclick="window.location='/play?move={{ sector - 1 }}'">Previous
                 sector
             </button>
         {% endif %}
-        <button type="button" class="button move" onclick="window.location='/play?move={{ sector + 1 }}'">Next sector
+        {% if sector is not none %}
+            <button type="button" class="button move" onclick="window.location='/play?move={{ sector + 1 }}'">Next
+            sector
+        {% endif %}
         </button>
     </div>
 {% endblock %}

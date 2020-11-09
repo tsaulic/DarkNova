@@ -16,6 +16,6 @@ def move(sector, active_player):
         except exc.IntegrityError:
             return render_error("Invalid sector")
         finally:
-            return redirect(url_for('play'))
+            return redirect(url_for('play.play'))
     else:
         return render_error("Sector must not be None")

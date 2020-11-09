@@ -1,20 +1,34 @@
-from flask import render_template, request, session, redirect, url_for
+from flask import render_template, request, session, redirect, url_for, Blueprint
 from sqlalchemy import exc
 
 from configuration import version
-from core import app
-from core.actions.move import move
 from core.actions.capture import capture
+from core.actions.move import move
 from core.models import Player, Sector
 from core.render_static import render_error
+from core.routes.populate import insert_player
+
+bp = Blueprint('play', __name__)
 
 
-@app.route('/play')
+@bp.route('/play')
 def play():
-    if 'player' in session:
-        player_name = session['player']
+    active_player = None
+    players_in_sector = None
+    player_name = None
+    ship_name = None
+
+    if 'player_name' in session:
+        player_name = session['player_name']
+        player_exists = Player.query.filter_by(username=player_name).scalar() is not None
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('login.login'))
+
+    if 'ship_name' in session:
+        ship_name = session['ship_name']
+
+    if not player_exists and player_name is not None and ship_name is not None:
+        insert_player(player_name, ship_name)
 
     actions = {}
 
@@ -23,17 +37,14 @@ def play():
     if request.args.get('capture') is not None:
         actions['capture'] = request.args.get('capture')
 
-    active_player = None
-    players_in_sector = None
-
     if player_name is not None:
         # noinspection PyBroadException
         try:
             active_player = Player.query.filter_by(username=player_name).first()
         except exc.OperationalError:
-            return redirect(url_for('populate'))
+            return render_error('Please create the DB first')
         except Exception:
-            return render_error("Failed to fetch player")
+            return render_error('Failed to fetch player')
 
     if active_player is not None:
         planets = Sector.query.filter_by(id=active_player.sector.id).first().planets

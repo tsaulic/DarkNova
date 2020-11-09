@@ -26,6 +26,6 @@ def capture(planet_id, planets, active_player):
             except exc.IntegrityError:
                 return render_error("Invalid planet")
             finally:
-                return redirect(url_for('play'))
+                return redirect(url_for('play.play'))
     else:
-        return redirect(url_for('play'))
+        return redirect(url_for('play.play'))
