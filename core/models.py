@@ -6,10 +6,9 @@ class Player(db.Model):
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     ship_name = db.Column(db.String(32), unique=True, nullable=False)
-    sector_id = db.Column(db.Integer, db.ForeignKey('sector.id'), nullable=False)
     sector = db.relationship('Sector', backref=db.backref('players', lazy=True))
-    planet_id = db.Column(db.Integer, db.ForeignKey('planet.id'), nullable=True)
-    planets = db.relationship('Planet', backref=db.backref('player', lazy=True))
+    sector_key = db.Column(db.Integer, db.ForeignKey('sector.id'), nullable=False)
+    planets_key = db.Column(db.Integer, db.ForeignKey('planet.id'), nullable=True)
 
     def serialize(self):
         return {
@@ -46,7 +45,7 @@ class Planet(db.Model):
     name = db.Column(db.String(32), nullable=False)
     sector_id = db.Column(db.Integer, db.ForeignKey('sector.id'), nullable=False)
     sector = db.relationship('Sector', backref=db.backref('planets', lazy=True))
-    owner = db.relationship('Player', backref=db.backref('player', lazy=True))
+    owner = db.Column(db.Integer, nullable=True)
 
     def serialize(self):
         return {

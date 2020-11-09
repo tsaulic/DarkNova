@@ -9,7 +9,7 @@
             <div class="planet-row">
                 {% for planet in planets %}
 
-                    {% if planet.owner == [] %}
+                    {% if planet.owner == None %}
                         <div class="planet-column">
                             <img class="planet-unowned"
                                  src="{{ url_for('static', filename='img/planet_unowned.svg') }}">

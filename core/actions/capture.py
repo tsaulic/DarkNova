@@ -12,10 +12,10 @@ def capture(planet_id, planets, active_player):
         return render_error('Parameter capture must be of type int')
 
     for planet in planets:
-        if planet_id == planet.id and planet.owner == []:
+        if planet_id == planet.id and planet.owner == None:
             planet.name = '{}-{}'.format(active_player.username[0] + active_player.ship_name[0],
                                          active_player.sector.id)
-            planet.owner.append(active_player)
+            planet.owner = active_player.id
 
             try:
                 db.session.commit()
