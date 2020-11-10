@@ -12,8 +12,6 @@ app.secret_key = secret_key
 app.permanent_session_lifetime = timedelta(minutes=5)
 db = SQLAlchemy(app)
 
-from core.models import Player, Sector, Planet
-
 from core.routes import login
 from core.routes import logout
 from core.routes import play

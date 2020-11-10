@@ -1,12 +1,16 @@
+import sqlite3
+
 import flask
 from flask import render_template, request, session, redirect, url_for, Blueprint
 from sqlalchemy import exc
 
 from configuration import version
+from core import db
 from core.actions.capture import capture
 from core.actions.move import move
-from core.models import Player, Sector
 from core.routes.populate import insert_player
+from models import Player
+from models import Sector
 
 bp = Blueprint('play', __name__)
 
@@ -15,12 +19,26 @@ bp = Blueprint('play', __name__)
 def play():
     active_player = None
     players_in_sector = None
-    player_name = None
     ship_name = None
 
     if 'player_name' in session:
         player_name = session['player_name']
-        player_exists = Player.query.filter_by(username=player_name).scalar() is not None
+        try:
+            player_exists = Player.query.filter_by(username=player_name).scalar() is not None
+        except AssertionError as err:
+            db.session.rollback()
+            flask.abort(409, err)
+        except (exc.IntegrityError, sqlite3.IntegrityError) as err:
+            db.session.rollback()
+            flask.abort(409, err.orig)
+        except exc.OperationalError:
+            db.session.rollback()
+            flask.abort(409, 'Please create the DB first')
+        except Exception as err:
+            db.session.rollback()
+            flask.abort(500, err)
+        finally:
+            db.session.close()
     else:
         return redirect(url_for('login.login'))
 

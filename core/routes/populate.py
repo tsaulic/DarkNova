@@ -6,7 +6,10 @@ from flask import request, Blueprint, redirect, url_for
 from sqlalchemy import exc
 
 from configuration import sectors_default_amount
-from core import db, Sector, Planet, Player
+from core import db
+from models import Planet
+from models import Player
+from models import Sector
 
 bp = Blueprint('populate', __name__)
 
@@ -14,8 +17,10 @@ sol = Sector(id=0, name='Sol')
 
 
 def populate_mock_db(sectors_value):
+    db.session.expire_all()
     db.drop_all()
     db.create_all()
+    db.session.expire_all()
 
     db.session.add(Player(
         username="Admin",
@@ -29,7 +34,20 @@ def populate_mock_db(sectors_value):
         if has_planet(4) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
         if has_planet(2) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
         if has_planet(0) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
-    db.session.commit()
+
+    try:
+        db.session.commit()
+    except AssertionError as err:
+        db.session.rollback()
+        flask.abort(409, err)
+    except (exc.IntegrityError, sqlite3.IntegrityError) as err:
+        db.session.rollback()
+        flask.abort(409, err.orig)
+    except Exception as err:
+        db.session.rollback()
+        flask.abort(500, err)
+    finally:
+        db.session.close()
 
 
 def has_planet(cutoff):
@@ -65,6 +83,7 @@ def insert_player(player_name, ship_name):
 @bp.route('/populate', methods=['GET'])
 def populate():
     sector_value = request.args.get('sectors')
+    sol_exists = False
 
     try:
         sector_value = int(sector_value)
@@ -73,9 +92,16 @@ def populate():
     except TypeError:
         sector_value = sectors_default_amount
 
-    if sector_value is not None:
+    try:
+        sol_exists = Sector.query.filter_by(id=0).scalar() is not None
+    except exc.OperationalError:
+        pass
+
+    if sector_value is not None and not sol_exists:
         populate_mock_db(sector_value)
-    else:
+    elif not sol_exists:
         populate_mock_db(sectors_default_amount)
+    else:
+        flask.abort(400, 'DB already created')
 
     return 'success'

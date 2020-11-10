@@ -4,7 +4,8 @@ import flask
 from flask import url_for, redirect
 from sqlalchemy import exc
 
-from core import Sector, db
+from core import db
+from models import Sector
 
 
 def move(sector, active_player):

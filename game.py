@@ -7,4 +7,4 @@ if __name__ == '__main__':
     # $env:FLASK_APP="game.py"
     # flask run --host=0.0.0.0 --port=9909
     # and turn off debug (debug=False)
-    app.run(host='0.0.0.0', port=80, debug=False)
+    app.run(host='127.0.0.1', port=80, debug=False)
