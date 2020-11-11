@@ -36,8 +36,9 @@
         {% endif %}
         {% if sector is not none %}
             <button type="button" class="button move" onclick="window.location='/play?move={{ sector + 1 }}'">Next
-            sector
+                sector
+            </button>
         {% endif %}
-        </button>
+        <button type="button" class="button logout" onclick="window.location='/logout'">Logout</button>
     </div>
 {% endblock %}

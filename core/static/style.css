@@ -92,6 +92,9 @@ body {
     display: inline-block;
     font-size: 12px;
     flex: 1;
+    margin: 0.5em;
+    max-height: 2em;
+    height: 2em;
 }
 
 .button.move {
@@ -104,6 +107,12 @@ body {
     border: 1px dashed azure;
     color: chartreuse;
     background-color: #090909;
+}
+
+.button.logout {
+    border: 1px dashed azure;
+    color: azure;
+    background-color: darkred;
 }
 
 .planet-row {
@@ -120,6 +129,7 @@ body {
     flex-direction: column;
     margin-right: 0.5em;
     flex: 1;
+    display: flex;
 }
 
 .action-column {
@@ -127,6 +137,7 @@ body {
     flex-direction: column;
     margin-left: 0.5em;
     flex: 0 0 16em;
+    display: flex;
 }
 
 .planet-column {
