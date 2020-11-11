@@ -15,8 +15,8 @@ DONE:
 How to test it out:
  * run the Flask server
  * navigate to `/populate{?sectors=n}`; use optional sectors parameter to determine how many sectors to create
- * try `/` and to login as either `Test` or `Unknown`
- * to move `/play?move=<sector id>`
+ * try `/` and whatever you type in you will log in as
+ * to move to sector other than previous/next, for now: `/play?move=<sector id>`
  * to take planets `/play?take=<planet id>`
  * `/logout` to kill the simple session
  
