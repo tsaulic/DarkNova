@@ -1,5 +1,3 @@
-import sqlite3
-
 import flask
 from flask import url_for, redirect
 from sqlalchemy import exc
@@ -26,7 +24,7 @@ def capture(planet_id, planets, active_player):
             except AssertionError as err:
                 db.session.rollback()
                 flask.abort(409, err)
-            except (exc.IntegrityError, sqlite3.IntegrityError) as err:
+            except exc.IntegrityError as err:
                 db.session.rollback()
                 flask.abort(409, err.orig)
             except Exception as err:

@@ -24,5 +24,3 @@ htmlcov/
 .coverage
 .coverage.*
 *,cover
-
-game.sqlite

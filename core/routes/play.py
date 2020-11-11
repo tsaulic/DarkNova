@@ -1,5 +1,3 @@
-import sqlite3
-
 import flask
 from flask import render_template, request, session, redirect, url_for, Blueprint
 from sqlalchemy import exc
@@ -8,9 +6,9 @@ from configuration import version
 from core import db
 from core.actions.capture import capture
 from core.actions.move import move
-from core.routes.populate import insert_player
 from core.models import Player
 from core.models import Sector
+from core.routes.populate import insert_player
 
 bp = Blueprint('play', __name__)
 
@@ -29,7 +27,7 @@ def play():
         except AssertionError as err:
             db.session.rollback()
             flask.abort(409, err)
-        except (exc.IntegrityError, sqlite3.IntegrityError) as err:
+        except exc.IntegrityError as err:
             db.session.rollback()
             flask.abort(409, err.orig)
         except exc.OperationalError:

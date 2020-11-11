@@ -1,4 +1,3 @@
-import sqlite3
 from random import randrange
 
 import flask
@@ -17,11 +16,10 @@ sol = Sector(id=0, name='Sol')
 
 
 def populate_mock_db(sectors_value):
-    db.session.expire_all()
     db.drop_all()
     db.create_all()
-    db.session.expire_all()
 
+    db.session.add(sol)
     db.session.add(Player(
         username="Admin",
         email='admin@example.com',
@@ -35,19 +33,19 @@ def populate_mock_db(sectors_value):
         if has_planet(2) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
         if has_planet(0) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
 
-    try:
-        db.session.commit()
-    except AssertionError as err:
-        db.session.rollback()
-        flask.abort(409, err)
-    except (exc.IntegrityError, sqlite3.IntegrityError) as err:
-        db.session.rollback()
-        flask.abort(409, err.orig)
-    except Exception as err:
-        db.session.rollback()
-        flask.abort(500, err)
-    finally:
-        db.session.close()
+        try:
+            db.session.commit()
+        except AssertionError as err:
+            db.session.rollback()
+            flask.abort(409, err)
+        except exc.IntegrityError as err:
+            db.session.rollback()
+            flask.abort(409, err.orig)
+        except Exception as err:
+            db.session.rollback()
+            flask.abort(500, err)
+        finally:
+            db.session.close()
 
 
 def has_planet(cutoff):
@@ -69,7 +67,7 @@ def insert_player(player_name, ship_name):
     except AssertionError as err:
         db.session.rollback()
         flask.abort(409, err)
-    except (exc.IntegrityError, sqlite3.IntegrityError) as err:
+    except exc.IntegrityError as err:
         db.session.rollback()
         flask.abort(409, err.orig)
     except Exception as err:
@@ -95,6 +93,8 @@ def populate():
     try:
         sol_exists = Sector.query.filter_by(id=0).scalar() is not None
     except exc.OperationalError:
+        pass
+    except exc.ProgrammingError:
         pass
 
     if sector_value is not None and not sol_exists:

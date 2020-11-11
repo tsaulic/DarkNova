@@ -6,10 +6,9 @@ from google.cloud.secretmanager_v1 import AccessSecretVersionRequest
 
 system = platform.system()
 
-version = semver.VersionInfo.parse('0.2.4-alpha+build.13')
-# game_db_path = 'sqlite:///../game.sqlite'
+version = semver.VersionInfo.parse('0.3.0-alpha+build.14')
 if system == 'Windows' or system == 'Darwin':
-    game_db_path = 'sqlite:///:memory:'
+    game_db_path = 'postgres+psycopg2://postgres:password@localhost:5432/darknova'
 elif system == 'Linux':
     from google.cloud import secretmanager
 
