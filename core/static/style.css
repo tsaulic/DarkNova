@@ -77,10 +77,9 @@ body {
 
 .content {
     position: absolute;
-    z-index: 4;
     display: flex;
     color: azure;
-    width: 100%;
+    width: 98%;
 }
 
 .button {
@@ -136,6 +135,7 @@ body {
     background: transparent;
     flex-direction: column;
     margin-left: 0.5em;
+    margin-right: 0.5em;
     flex: 0 0 16em;
     display: flex;
 }
