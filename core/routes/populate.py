@@ -44,6 +44,7 @@ def has_planet(cutoff):
 
 def insert_player(player_name, ship_name):
     email_seed = randrange(1, 999) * randrange(1, 999)
+    db.session.expire_on_commit = False
     db.session.add(Player(
         username=player_name,
         email='{}@example.com'.format(email_seed),
