@@ -7,7 +7,7 @@ class Player(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     ship_name = db.Column(db.String(32), unique=True, nullable=False)
     sector = db.relationship('Sector', backref=db.backref('players', lazy=True))
-    sector_key = db.Column(db.Integer, db.ForeignKey('sector.id'), nullable=False)
+    sector_key = db.Column(db.Integer, db.ForeignKey('sector.id'), unique=False, nullable=False)
     planets_key = db.Column(db.Integer, db.ForeignKey('planet.id'), nullable=True)
 
     def serialize(self):
