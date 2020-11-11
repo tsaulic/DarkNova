@@ -48,7 +48,7 @@ def insert_player(player_name, ship_name):
         username=player_name,
         email='{}@example.com'.format(email_seed),
         ship_name=ship_name,
-        sector=sol
+        sector_key=sol.id
     ))
 
     commit_try()
@@ -96,4 +96,5 @@ def commit_try():
         db.session.rollback()
         flask.abort(500, err)
     finally:
+        db.session.expunge_all()
         db.session.close()
