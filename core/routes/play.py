@@ -9,8 +9,8 @@ from core import db
 from core.actions.capture import capture
 from core.actions.move import move
 from core.routes.populate import insert_player
-from models import Player
-from models import Sector
+from core.models import Player
+from core.models import Sector
 
 bp = Blueprint('play', __name__)
 

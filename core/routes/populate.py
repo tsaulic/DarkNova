@@ -7,9 +7,9 @@ from sqlalchemy import exc
 
 from configuration import sectors_default_amount
 from core import db
-from models import Planet
-from models import Player
-from models import Sector
+from core.models import Planet
+from core.models import Player
+from core.models import Sector
 
 bp = Blueprint('populate', __name__)
 
