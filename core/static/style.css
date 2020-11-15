@@ -141,11 +141,17 @@ body {
 }
 
 .planet-column {
-    background: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0 1em 0 1em;
+}
+
+.beacon-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2em 1em 2em 1em;
 }
 
 .planet-unowned {

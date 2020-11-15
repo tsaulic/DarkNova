@@ -10,41 +10,42 @@ from core.models import Player, Planet, Sector
 
 bp = Blueprint('populate', __name__)
 
-sol = Sector(id=0, name='Sol')
+sol = Sector(id=0, name='Sol', beacon='The hub of the universe!')
 
 
 def populate_mock_db(sectors_value):
     db.drop_all()
     db.create_all()
 
+    db.session.expire_on_commit = False
     commit_try()
 
     db.session.add(Player(
         username="Admin",
         email='admin@example.com',
         ship_name="Admin's ship",
-        sector=sol
+        sector_key=sol.id
     ))
 
     commit_try()
 
     for sector in range(1, sectors_value):
         db.session.add(Sector(id=sector, name=''))
-        if has_planet(4) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
-        if has_planet(2) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
-        if has_planet(0) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
+
+        if has_feature(4) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
+        if has_feature(2) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
+        if has_feature(0) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
 
     commit_try()
 
 
-def has_planet(cutoff):
+def has_feature(cutoff):
     rand_num = randrange(9)
     return False if rand_num > cutoff else True
 
 
 def insert_player(player_name, ship_name):
     email_seed = randrange(1, 999) * randrange(1, 999)
-    db.session.expire_on_commit = False
     db.session.add(Player(
         username=player_name,
         email='{}@example.com'.format(email_seed),

@@ -19,6 +19,7 @@ def play():
     players_in_sector = None
     ship_name = None
     player_exists = None
+    active_sector = None
 
     if 'player_name' in session:
         player_name = session['player_name']
@@ -64,7 +65,8 @@ def play():
             flask.abort(400, 'Failed to fetch player')
 
     if active_player is not None:
-        planets = Sector.query.filter_by(id=active_player.sector.id).first().planets
+        active_sector = Sector.query.filter_by(id=active_player.sector.id).first()
+        planets = active_sector.planets
         if len(active_player.sector.players) > 1:
             players_in_sector = ', '.join(player.username for player in active_player.sector.players
                                           if player.username != active_player.username)
@@ -77,8 +79,8 @@ def play():
         if action == 'capture':
             return capture(actions['capture'], planets, active_player)
 
-    sector_name = active_player.sector.name
-    sector_info = '{} ({})'.format(active_player.sector.id, sector_name) if sector_name != "" \
+    sector_name = active_sector.name
+    sector_info = '{} ({})'.format(active_sector.id, sector_name) if sector_name != "" \
         else active_player.sector.id
 
     if len(planets) > 0:
@@ -96,6 +98,6 @@ def play():
             players_in_sector,
             planets_in_sector),
         player=active_player,
-        sector=active_player.sector.id,
+        sector=active_sector,
         planets=planets
     )

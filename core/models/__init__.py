@@ -27,6 +27,7 @@ class Player(db.Model):
 class Sector(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), nullable=False)
+    beacon = db.Column(db.String, nullable=True)
 
     def serialize(self):
         return {

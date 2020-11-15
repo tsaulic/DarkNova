@@ -27,15 +27,19 @@
                 {% endfor %}
             </div>
         {% endif %}
+        {% if sector is not none and sector.beacon is not none and sector.beacon|length %}
+            <div class="beacon-column">{{ sector.beacon }}</div>
+        {% endif %}
     </div>
     <div class="action-column">
-        {% if sector is not none and sector > 0 %}
-            <button type="button" class="button move" onclick="window.location='/play?move={{ sector - 1 }}'">Previous
+        {% if sector is not none and sector.id > 0 %}
+            <button type="button" class="button move" onclick="window.location='/play?move={{ sector.id - 1 }}'">
+                Previous
                 sector
             </button>
         {% endif %}
         {% if sector is not none %}
-            <button type="button" class="button move" onclick="window.location='/play?move={{ sector + 1 }}'">Next
+            <button type="button" class="button move" onclick="window.location='/play?move={{ sector.id + 1 }}'">Next
                 sector
             </button>
         {% endif %}
