@@ -6,11 +6,9 @@ from sqlalchemy import exc
 
 from configuration import sectors_default_amount
 from core import db
-from core.models import Player, Planet, Sector
+from core.models import Player, Planet, Sector, Port
 
 bp = Blueprint('populate', __name__)
-
-sol = Sector(id=0, name='Sol', beacon='The hub of the universe!')
 
 
 def populate_mock_db(sectors_value):
@@ -20,11 +18,22 @@ def populate_mock_db(sectors_value):
     db.session.expire_on_commit = False
     commit_try()
 
+    db.session.add(Sector(
+        id=0,
+        name='Sol',
+        beacon='The hub of the universe!'
+    ))
+
     db.session.add(Player(
-        username="Admin",
+        username='Admin',
         email='admin@example.com',
-        ship_name="Admin's ship",
-        sector_key=sol.id
+        ship_name='Admin\'s ship',
+        sector_key=0  # Sol
+    ))
+
+    db.session.add(Port(
+        type=0,
+        sector_key=0  # Sol
     ))
 
     commit_try()
@@ -32,9 +41,9 @@ def populate_mock_db(sectors_value):
     for sector in range(1, sectors_value):
         db.session.add(Sector(id=sector, name=''))
 
-        if has_feature(4) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
-        if has_feature(2) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
-        if has_feature(0) and sector != 0: db.session.add(Planet(name='Unowned', sector_id=sector))
+        if has_feature(4) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
+        if has_feature(2) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
+        if has_feature(0) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
 
     commit_try()
 
@@ -50,7 +59,7 @@ def insert_player(player_name, ship_name):
         username=player_name,
         email='{}@example.com'.format(email_seed),
         ship_name=ship_name,
-        sector_key=sol.id
+        sector_key=0  # Sol
     ))
 
     commit_try()

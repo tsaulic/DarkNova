@@ -1,3 +1,5 @@
+from enum import Enum
+
 from core import db
 
 
@@ -34,7 +36,8 @@ class Sector(db.Model):
             'id': self.id,
             'name': self.name,
             'players': [player.username for player in self.players],
-            'planets': [planet.name for planet in self.planets]
+            'planets': [planet.name for planet in self.planets],
+            'ports': [PortType(port.id).name for port in self.ports]
         }
 
     def __repr__(self):
@@ -44,7 +47,7 @@ class Sector(db.Model):
 class Planet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), nullable=False)
-    sector_id = db.Column(db.Integer, db.ForeignKey('sector.id'), nullable=False)
+    sector_key = db.Column(db.Integer, db.ForeignKey('sector.id'), nullable=False)
     sector = db.relationship('Sector', backref=db.backref('planets', lazy=True))
     owner = db.Column(db.Integer, nullable=True)
 
@@ -58,3 +61,28 @@ class Planet(db.Model):
 
     def __repr__(self):
         return '<Planet %r in sector: %r owned by: %r>' % (self.name, self.sector, self.owner)
+
+
+class Port(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.Integer, nullable=False)
+    sector_key = db.Column(db.Integer, db.ForeignKey('sector.id'), nullable=False)
+    sector = db.relationship('Sector', backref=db.backref('ports', lazy=True))
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'type': self.type,
+            'sector': self.sector.id,
+        }
+
+    def __repr__(self):
+        return '<%r port in sector: %r>' % (PortType(self.type).name, self.sector)
+
+
+class PortType(Enum):
+    SPECIAL = 0
+    ENERGY = 1
+    ORGANICS = 2
+    GOODS = 3
+    ORE = 4

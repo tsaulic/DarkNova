@@ -88,6 +88,8 @@ def play():
     else:
         planets_in_sector = None
 
+    port = active_sector.ports[0]
+
     return render_template(
         'play.html',
         title='DarkNova version: {}'.format(version),
@@ -99,5 +101,6 @@ def play():
             planets_in_sector),
         player=active_player,
         sector=active_sector,
-        planets=planets
+        planets=planets,
+        port=port
     )

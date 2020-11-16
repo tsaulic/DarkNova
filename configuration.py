@@ -6,7 +6,7 @@ from google.cloud.secretmanager_v1 import AccessSecretVersionRequest
 
 system = platform.system()
 
-version = semver.VersionInfo.parse('0.3.2-alpha+build.16')
+version = semver.VersionInfo.parse('0.3.3-alpha+build.17')
 if system == 'Windows' or system == 'Darwin':
     game_db_path = 'postgres+psycopg2://postgres:password@localhost:5432/darknova'
 elif system == 'Linux':
