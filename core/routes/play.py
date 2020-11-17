@@ -88,12 +88,15 @@ def play():
     else:
         planets_in_sector = None
 
-    port = active_sector.ports[0]
+    try:
+        port = active_sector.ports[0]
+    except IndexError:
+        port = None
 
     return render_template(
         'play.html',
         title='DarkNova version: {}'.format(version),
-        content='Playing as {} aboard {} in sector {}; Other ships here: {}; Planets: {}'.format(
+        status='Playing as {} aboard {} in sector {}; Other ships here: {}; Planets: {}'.format(
             active_player.username,
             active_player.ship_name,
             sector_info,

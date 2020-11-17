@@ -44,6 +44,7 @@ def populate_mock_db(sectors_value):
         if has_feature(4) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
         if has_feature(2) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
         if has_feature(0) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
+        if has_feature(5) and sector != 0: db.session.add(Port(type=randrange(0, 5), sector_key=sector))
 
     commit_try()
 

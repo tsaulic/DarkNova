@@ -114,7 +114,7 @@ body {
     background-color: darkred;
 }
 
-.planet-row {
+.row {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -129,6 +129,8 @@ body {
     margin-right: 0.5em;
     flex: 1;
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .action-column {
@@ -148,6 +150,13 @@ body {
 }
 
 .beacon-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2em 1em 2em 1em;
+}
+
+.port-column {
     display: flex;
     flex-direction: column;
     align-items: center;

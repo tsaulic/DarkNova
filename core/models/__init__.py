@@ -72,7 +72,7 @@ class Port(db.Model):
     def serialize(self):
         return {
             'id': self.id,
-            'type': self.type,
+            'type': PortType(self.type).name,
             'sector': self.sector.id,
         }
 
