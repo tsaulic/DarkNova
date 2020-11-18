@@ -4,7 +4,7 @@ from sqlalchemy import exc
 from core import db
 
 
-def commit_try(expunge = True):
+def commit_try(expunge=True):
     try:
         db.session.commit()
     except AssertionError as err:
