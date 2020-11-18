@@ -70,25 +70,30 @@ body {
     display: flex;
 }
 
-.planet-column {
+.column {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.column.planet {
     margin: 0 1em 0 1em;
 }
 
-.beacon-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.column.beacon {
     margin: 2em 1em 2em 1em;
 }
 
-.port-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.column.port {
     margin: 2em 1em 2em 1em;
+}
+
+.column.sector {
+    margin: 2em 1em 2em 1em;
+}
+
+.sector-number {
+    font-weight: bold;
 }
 
 .planet-unowned {

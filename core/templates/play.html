@@ -8,7 +8,7 @@
             <div class="row">
                 {% for planet in planets %}
                     {% if planet.owner == none %}
-                        <div class="planet-column">
+                        <div class="column planet">
                             <img class="planet-unowned"
                                  src="{{ url_for('static', filename='img/planet_unowned.svg') }}">
                             <button type="button" class="button capture"
@@ -17,7 +17,7 @@
                             </button>
                         </div>
                     {% else %}
-                        <div class="planet-column">
+                        <div class="column planet">
                             <img class="planet-owned"
                                  src="{{ url_for('static', filename='img/planet_owned.svg') }}">
                             <span class="planet-name">{{ planet.name }}</span>
@@ -28,10 +28,17 @@
         {% endif %}
         <div class="row">
             {% if sector is not none and sector.beacon is not none and sector.beacon|length %}
-                <div class="beacon-column">{{ sector.beacon }}</div>
+                <div class="column beacon">{{ sector.beacon }}</div>
             {% endif %}
+        </div>
+        <div class="row">
             {% if sector is not none and port is not none %}
-                <div class="port-column">Port in this sector: {{ port.serialize()['type'] }}</div>
+                <div class="column port">Port in this sector: {{ port.serialize()['type'] }}</div>
+            {% endif %}
+        </div>
+        <div class="row">
+            {% if sector is not none %}
+                <div class="column sector">Sector: <span class="sector-number">{{ sector.id }}</span></div>
             {% endif %}
         </div>
     </div>

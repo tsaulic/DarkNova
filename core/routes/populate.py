@@ -7,6 +7,7 @@ from sqlalchemy import exc
 from configuration import sectors_default_amount
 from core import db
 from core.models import Player, Planet, Sector, Port
+from core.util import commit_try
 
 bp = Blueprint('populate', __name__)
 
@@ -93,20 +94,3 @@ def populate():
         flask.abort(400, 'DB already created')
 
     return 'success'
-
-
-def commit_try():
-    try:
-        db.session.commit()
-    except AssertionError as err:
-        db.session.rollback()
-        flask.abort(409, err)
-    except exc.IntegrityError as err:
-        db.session.rollback()
-        flask.abort(409, err.orig)
-    except Exception as err:
-        db.session.rollback()
-        flask.abort(500, err)
-    finally:
-        db.session.expunge_all()
-        db.session.close()

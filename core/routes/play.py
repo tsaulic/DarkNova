@@ -96,12 +96,10 @@ def play():
     return render_template(
         'play.html',
         title='DarkNova version: {}'.format(version),
-        status='Playing as {} aboard {} in sector {}; Other ships here: {}; Planets: {}'.format(
+        status='Playing as {} aboard {}; Other ships here: {}'.format(
             active_player.username,
             active_player.ship_name,
-            sector_info,
-            players_in_sector,
-            planets_in_sector),
+            players_in_sector),
         player=active_player,
         sector=active_sector,
         planets=planets,

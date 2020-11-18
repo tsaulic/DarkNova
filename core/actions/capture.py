@@ -1,8 +1,7 @@
 import flask
 from flask import url_for, redirect
-from sqlalchemy import exc
 
-from core import db
+from core.util import commit_try
 
 
 def capture(planet_id, planets, active_player):
@@ -19,19 +18,6 @@ def capture(planet_id, planets, active_player):
                                             sector_planets + 1)
             planet.owner = active_player.id
 
-            try:
-                db.session.commit()
-            except AssertionError as err:
-                db.session.rollback()
-                flask.abort(409, err)
-            except exc.IntegrityError as err:
-                db.session.rollback()
-                flask.abort(409, err.orig)
-            except Exception as err:
-                db.session.rollback()
-                flask.abort(500, err)
-            finally:
-                db.session.close()
-                return redirect(url_for('play.play'))
+            if commit_try(expunge=False): return redirect(url_for('play.play'))
     else:
         return redirect(url_for('play.play'))
