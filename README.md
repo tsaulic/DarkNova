@@ -3,8 +3,25 @@ DarkNova is a re-write of BlackNova Traders © 2000-2020 Ron Harwood & the BNT D
 This version is written in Python, utilising Flask for both the backend and serving the content.
 We're aiming for the content to be as modern as possible, but also simple. Pure CSS/HTML with minimal JavaScript.
 
-TODO:
- * way too much
+TODO (way too much, but still, here's a list in a rough order of priority):
+
+ * turns/use turns for actions
+ * handle turn cap via config
+ * turn update scheduler
+ * sector warp links
+ * ship modules/credits
+ * manual trading in ports
+ * trade routes; warp/realspace trading using the routes
+ * planet bases
+ * handle planets resources in update scheduler
+ * ship to ship combat
+ * ship to planet combat
+ * sector defences
+ * alliances
+ * IGB
+ * news
+ * chatbox (may not allow if too much spam is posted)
+ * rankings with online status/efficiency
 
 DONE:
  * basic integration and relationship between very simple Player, Sector and Planet classes
