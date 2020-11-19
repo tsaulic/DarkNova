@@ -4,6 +4,21 @@
 {% block content %}
     <div class='game-column'>
         {{ status }}
+        {% if sector is not none %}
+            <div class="row">
+                <div class="column sector">Sector: <span class="sector-number">{{ sector.id }}</span></div>
+            </div>
+        {% endif %}
+        {% if sector is not none and sector.beacon is not none and sector.beacon|length %}
+            <div class="row">
+                <div class="column beacon">{{ sector.beacon }}</div>
+            </div>
+        {% endif %}
+        {% if sector is not none and port is not none %}
+            <div class="row">
+                <div class="column port">Port in this sector: {{ port.serialize()['type'] }}</div>
+            </div>
+        {% endif %}
         {% if planets|length > 0 %}
             <div class="row">
                 {% for planet in planets %}
@@ -26,21 +41,11 @@
                 {% endfor %}
             </div>
         {% endif %}
-        <div class="row">
-            {% if sector is not none and sector.beacon is not none and sector.beacon|length %}
-                <div class="column beacon">{{ sector.beacon }}</div>
-            {% endif %}
-        </div>
-        <div class="row">
-            {% if sector is not none and port is not none %}
-                <div class="column port">Port in this sector: {{ port.serialize()['type'] }}</div>
-            {% endif %}
-        </div>
-        <div class="row">
-            {% if sector is not none %}
-                <div class="column sector">Sector: <span class="sector-number">{{ sector.id }}</span></div>
-            {% endif %}
-        </div>
+        {% if visible_players is not none %}
+            <div class="row">
+                <div class="column players">Other players in this sector: {{ visible_players }}</div>
+            </div>
+        {% endif %}
     </div>
     <div class="action-column">
         {% if sector is not none and sector.id > 0 %}

@@ -79,15 +79,6 @@ def play():
         if action == 'capture':
             return capture(actions['capture'], planets, active_player)
 
-    sector_name = active_sector.name
-    sector_info = '{} ({})'.format(active_sector.id, sector_name) if sector_name != "" \
-        else active_player.sector.id
-
-    if len(planets) > 0:
-        planets_in_sector = ', '.join('{} id={}'.format(planet.name, planet.id) for planet in planets)
-    else:
-        planets_in_sector = None
-
     try:
         port = active_sector.ports[0]
     except IndexError:
@@ -96,12 +87,12 @@ def play():
     return render_template(
         'play.html',
         title='DarkNova version: {}'.format(version),
-        status='Playing as {} aboard {}; Other ships here: {}'.format(
+        status='Playing as {} aboard {}'.format(
             active_player.username,
-            active_player.ship_name,
-            players_in_sector),
+            active_player.ship_name),
         player=active_player,
         sector=active_sector,
-        planets=planets,
-        port=port
+        planets=sorted(planets, key=lambda planet: planet.id, reverse=True),
+        port=port,
+        visible_players=players_in_sector
     )

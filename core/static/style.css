@@ -82,18 +82,27 @@ body {
 
 .column.beacon {
     margin: 2em 1em 2em 1em;
+    display: flow-root;
 }
 
 .column.port {
     margin: 2em 1em 2em 1em;
+    display: flow-root;
 }
 
 .column.sector {
     margin: 2em 1em 2em 1em;
+    display: flow-root;
+}
+
+.column.players {
+    margin: 2em 1em 2em 1em;
+    display: flow-root;
 }
 
 .sector-number {
     font-weight: bold;
+    font-size: 1.4em;
 }
 
 .planet-unowned {
@@ -109,7 +118,7 @@ body {
 }
 
 .planet-name {
-    font-size: 14px;
+    font-size: 1.2em;
     color: azure;
     font-weight: bold;
 }
