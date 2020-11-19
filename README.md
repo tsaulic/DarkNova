@@ -10,7 +10,11 @@ DONE:
  * basic integration and relationship between very simple Player, Sector and Planet classes
  * basic generation of a universe (`n` number of sectors with 0 always being 'Sol') with random unowned planets
  * basic movement of players via a query parameter
+ * movement to a desired sector via a form label and button
  * allowing players to take unowned planets
+ * beacon support in sector class; display beacon in the UI
+ * showing ships in sector (currently unaffected by cloak as cloak is not implemented)
+ * generation of basic ports which currently do nothing (distribution of certain ports needs to be tweaked); displaying ports in sector in the UI
  
 How to test it out:
  * run the Flask server
