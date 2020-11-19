@@ -17,7 +17,7 @@ body {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 12px;
+    font-size: 0.7em;
     flex: 1;
     margin: 0.5em;
     max-height: 2em;
@@ -102,7 +102,7 @@ body {
 
 .sector-number {
     font-weight: bold;
-    font-size: 1.4em;
+    font-size: 1.2em;
 }
 
 .planet-unowned {
@@ -118,9 +118,20 @@ body {
 }
 
 .planet-name {
-    font-size: 1.2em;
+    font-size: 1em;
     color: azure;
     font-weight: bold;
+}
+
+.form {
+    display: flex;
+    align-self: center;
+    font-size: 1.2em;
+    flex: 1;
+}
+
+.label.move {
+    width: 6em;
 }
 
 /* BG animations start */

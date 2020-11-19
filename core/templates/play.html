@@ -59,6 +59,16 @@
                 sector
             </button>
         {% endif %}
+        <div class="form navigate">
+            <form action="#" method="get">
+                <label>
+                    <input class="label move" type="text" placeholder="0" name="move"/>
+                </label>
+                <input type="submit"
+                       onclick="$(window.location).attr('href', '/play?move=' + $('input[name=move]').val())"
+                       value="MOVE"/>
+            </form>
+        </div>
         <button type="button" class="button logout" onclick="window.location='/logout'">Logout</button>
     </div>
 {% endblock %}

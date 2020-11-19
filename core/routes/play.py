@@ -19,7 +19,6 @@ def play():
     players_in_sector = None
     ship_name = None
     player_exists = None
-    active_sector = None
 
     if 'player_name' in session:
         player_name = session['player_name']

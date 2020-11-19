@@ -5,6 +5,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap" rel="stylesheet">
     <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
     <title>{{ title }}</title>
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+            crossorigin="anonymous">
+
+    </script>
 </head>
 <body>
 <div class="background-container">
@@ -12,10 +18,17 @@
     <div class="twinkling"></div>
 </div>
 <div class="content">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
     {% block content %}
     {% endblock %}
 </div>
-<footer>
-    <div>Icons made by <a href="https://www.flaticon.com</footer>
 </body>
 </html>
