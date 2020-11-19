@@ -22,6 +22,7 @@ TODO (way too much, but still, here's a list in a rough order of priority):
  * news
  * chatbox (may not allow if too much spam is posted)
  * rankings with online status/efficiency
+ * more stuff coming, there's just so much
 
 DONE:
  * basic integration and relationship between very simple Player, Sector and Planet classes
