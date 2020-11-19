@@ -4,7 +4,7 @@ import flask
 from flask import request, Blueprint
 from sqlalchemy import exc
 
-from configuration import sectors_default_amount
+from configuration import sectors_default_amount, turns_start_amount
 from core import db
 from core.models import Player, Planet, Sector, Port
 from core.util import commit_try
@@ -29,6 +29,7 @@ def populate_mock_db(sectors_value):
         username='Admin',
         email='admin@example.com',
         ship_name='Admin\'s ship',
+        turns=999999,
         sector_key=0  # Sol
     ))
 
@@ -61,6 +62,7 @@ def insert_player(player_name, ship_name):
         username=player_name,
         email='{}@example.com'.format(email_seed),
         ship_name=ship_name,
+        turns=turns_start_amount,
         sector_key=0  # Sol
     ))
 

@@ -34,3 +34,5 @@ secret_key = os.environ.get('DARKNOVA_SECRET_KEY') or "test"
 
 # game related stuff
 sectors_default_amount = 500
+turns_start_amount = 24
+update_interval_seconds_length = 10

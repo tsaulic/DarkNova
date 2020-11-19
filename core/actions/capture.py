@@ -1,10 +1,17 @@
 import flask
-from flask import url_for, redirect
+from flask import url_for, redirect, flash
 
+from core.strings import not_enough_turns
 from core.util import commit_try
 
 
 def capture(planet_id, planets, active_player):
+    if active_player.turns > 0:
+        pass
+    else:
+        flash(not_enough_turns)
+        return redirect(url_for('play.play'))
+
     try:
         planet_id = int(planet_id)
     except ValueError:
@@ -17,6 +24,7 @@ def capture(planet_id, planets, active_player):
                                             active_player.sector.id,
                                             sector_planets + 1)
             planet.owner = active_player.id
+            active_player.turns = active_player.turns - 1
 
             if commit_try(expunge=False): return redirect(url_for('play.play'))
     else:

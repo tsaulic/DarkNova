@@ -3,7 +3,7 @@ from flask import request, session, redirect, url_for, render_template, Blueprin
 bp = Blueprint('login', __name__)
 
 
-@bp.route("/", methods=['POST', 'GET'])
+@bp.route('/', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
         session.permanent = True

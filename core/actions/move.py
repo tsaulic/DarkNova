@@ -4,17 +4,25 @@ from sqlalchemy import exc
 
 from core import db
 from core.models import Sector
+from core.strings import not_enough_turns, sector_must_be_int
 
 
 def move(sector, active_player):
     if sector is not None:
+        if active_player.turns > 0:
+            pass
+        else:
+            flash(not_enough_turns)
+            return redirect(url_for('play.play'))
+
         try:
             sector = int(sector)
         except ValueError:
-            flash("Please enter a sector number")
+            flash(sector_must_be_int)
             return redirect(url_for('play.play'))
 
         active_player.sector = Sector.query.filter_by(id=sector).first()
+        active_player.turns = active_player.turns - 1
 
         try:
             db.session.commit()
