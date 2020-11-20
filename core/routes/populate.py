@@ -7,7 +7,6 @@ from sqlalchemy import exc
 from configuration import sectors_default_amount, turns_start_amount
 from core import db
 from core.models import Player, Planet, Sector, Port
-from core.updater import start_scheduler
 from core.util import commit_try
 
 bp = Blueprint('populate', __name__)
@@ -49,7 +48,7 @@ def populate_mock_db(sectors_value):
         if has_feature(0) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
         if has_feature(5) and sector != 0: db.session.add(Port(type=randrange(0, 5), sector_key=sector))
 
-    if commit_try(): start_scheduler()
+    commit_try()
 
 
 def has_feature(cutoff):

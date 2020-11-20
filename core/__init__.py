@@ -16,8 +16,10 @@ from core.routes import login
 from core.routes import logout
 from core.routes import play
 from core.routes import populate
+from core.routes import schedule
 
 app.register_blueprint(login.bp)
 app.register_blueprint(logout.bp)
 app.register_blueprint(play.bp)
 app.register_blueprint(populate.bp)
+app.register_blueprint(schedule.bp)
