@@ -24,7 +24,7 @@ def capture(planet_id, planets, active_player):
                                             active_player.sector.id,
                                             sector_planets + 1)
             planet.owner = active_player.id
-            active_player.turns = active_player.turns - 1
+            active_player.turns -= 1
 
             if commit_try(expunge=False): return redirect(url_for('play.play'))
     else:

@@ -22,7 +22,7 @@ def move(sector, active_player):
             return redirect(url_for('play.play'))
 
         active_player.sector = Sector.query.filter_by(id=sector).first()
-        active_player.turns = active_player.turns - 1
+        active_player.turns -= 1
 
         try:
             db.session.commit()
