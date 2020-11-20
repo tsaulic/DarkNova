@@ -33,10 +33,10 @@ secret_key = os.environ.get('DARKNOVA_SECRET_KEY') or "test"
 
 # game related stuff
 ####################
-sectors_default_amount = 500
-turns_start_amount = 24
-turns_limit_amount = 36
+sectors_default_amount = 1000
+turns_start_amount = 200
+turns_limit_amount = 500
 turns_tick_amount = 6
-scheduler_interval_seconds = 10
+scheduler_interval_seconds = 60
 # 60 seconds is the tick, not recommended using ticks less than that unless testing
 factor = scheduler_interval_seconds / 60
