@@ -5,9 +5,7 @@ We're aiming for the content to be as modern as possible, but also simple. Pure 
 
 TODO (way too much, but still, here's a list in a rough order of priority):
 
- * turns/use turns for actions
- * handle turn cap via config
- * turn update scheduler
+ * display scheduler countdown
  * sector warp links
  * ship modules/credits
  * manual trading in ports
@@ -33,6 +31,9 @@ DONE:
  * beacon support in sector class; display beacon in the UI
  * showing ships in sector (currently unaffected by cloak as cloak is not implemented)
  * generation of basic ports which currently do nothing (distribution of certain ports needs to be tweaked); displaying ports in sector in the UI
+ * turns/use turns for actions
+ * handle turn cap via config
+ * turn update scheduler
  
 How to test it out:
  * run the Flask server
