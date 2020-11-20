@@ -6,7 +6,7 @@ from google.cloud.secretmanager_v1 import AccessSecretVersionRequest
 
 system = platform.system()
 
-version = semver.VersionInfo.parse('0.3.4-alpha+build.18')
+version = semver.VersionInfo.parse('0.3.5-alpha+build.19')
 if system == 'Windows' or system == 'Darwin':
     game_db_path = 'postgres+psycopg2://postgres:password@localhost:5432/darknova'
 elif system == 'Linux':
@@ -14,7 +14,6 @@ elif system == 'Linux':
 
     secrets = secretmanager.SecretManagerServiceClient()
     postgres_user = 'postgres'
-    # noinspection PyTypeChecker
     project_id = '546542878411'
     # noinspection PyTypeChecker
     postgres_password = secrets.access_secret_version(AccessSecretVersionRequest(
@@ -35,4 +34,4 @@ secret_key = os.environ.get('DARKNOVA_SECRET_KEY') or "test"
 # game related stuff
 sectors_default_amount = 500
 turns_start_amount = 24
-update_interval_seconds_length = 10
+update_interval_seconds = 10
