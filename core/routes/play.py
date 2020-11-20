@@ -9,6 +9,7 @@ from core.actions.move import move
 from core.models import Player
 from core.models import Sector
 from core.routes.populate import insert_player
+from core.scheduler import scheduler_get_remaining_time
 
 bp = Blueprint('play', __name__)
 
@@ -94,5 +95,6 @@ def play():
         sector=active_sector,
         planets=sorted(planets, key=lambda planet: planet.id, reverse=True),
         port=port,
-        visible_players=players_in_sector
+        visible_players=players_in_sector,
+        scheduler=scheduler_get_remaining_time()
     )

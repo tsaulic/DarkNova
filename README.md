@@ -5,7 +5,7 @@ We're aiming for the content to be as modern as possible, but also simple. Pure 
 
 TODO (way too much, but still, here's a list in a rough order of priority):
 
- * display scheduler countdown
+ * animate countdown with JavaScript
  * sector warp links
  * ship modules/credits
  * manual trading in ports
@@ -34,6 +34,7 @@ DONE:
  * turns/use turns for actions
  * handle turn cap via config
  * turn update scheduler
+ * display scheduler countdown
  
 How to test it out:
  * run the Flask server

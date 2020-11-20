@@ -134,6 +134,19 @@ body {
     width: 6em;
 }
 
+.scheduler {
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.2em;
+    flex: 1;
+    margin: 0.5em;
+    max-height: 2em;
+    height: auto;
+}
+
 /* BG animations start */
 
 @keyframes move-background {

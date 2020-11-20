@@ -1,12 +1,11 @@
-import atexit
+import time
+from datetime import datetime
 
-from apscheduler.schedulers.background import BackgroundScheduler
+import schedule
 
-from configuration import update_interval_seconds, turns_limit_amount, turns_tick_amount, factor
+from configuration import turns_limit_amount, turns_tick_amount, factor, scheduler_interval_seconds
 from core.models import Player
 from core.util import commit_try
-
-scheduler = BackgroundScheduler()
 
 
 def update():
@@ -24,8 +23,17 @@ def update():
     commit_try()
 
 
-def start_scheduler():
-    scheduler.add_job(func=update, trigger="interval", seconds=update_interval_seconds)
-    scheduler.start()
+scheduler = schedule.every(scheduler_interval_seconds).seconds.do(update)
 
-    atexit.register(lambda: scheduler.shutdown())
+
+def scheduler_start():
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
+
+def scheduler_get_remaining_time():
+    time_of_next_run = schedule.next_run()
+    time_now = datetime.now()
+
+    return (time_of_next_run - time_now).seconds

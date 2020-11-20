@@ -6,7 +6,7 @@ from google.cloud.secretmanager_v1 import AccessSecretVersionRequest
 
 system = platform.system()
 
-version = semver.VersionInfo.parse('0.4.0-alpha+build.20')
+version = semver.VersionInfo.parse('0.4.1-alpha+build.21')
 if system == 'Windows' or system == 'Darwin':
     game_db_path = 'postgres+psycopg2://postgres:password@localhost:5432/darknova'
 elif system == 'Linux':
@@ -37,6 +37,6 @@ sectors_default_amount = 500
 turns_start_amount = 24
 turns_limit_amount = 36
 turns_tick_amount = 6
-update_interval_seconds = 10
+scheduler_interval_seconds = 10
 # 60 seconds is the tick, not recommended using ticks less than that unless testing
-factor = update_interval_seconds / 60
+factor = scheduler_interval_seconds / 60

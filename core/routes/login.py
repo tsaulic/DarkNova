@@ -11,6 +11,7 @@ def login():
         ship_name = request.form['ship_name']
         session['player_name'] = player_name
         session['ship_name'] = ship_name
+
         return redirect(url_for('play.play'))
     else:
         if 'player_name' in session:
