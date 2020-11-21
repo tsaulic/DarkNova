@@ -43,16 +43,22 @@ def populate_mock_db(sectors_value):
     for sector in range(1, sectors_value):
         db.session.add(Sector(id=sector, name=''))
 
-        if has_feature(4) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
-        if has_feature(2) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
-        if has_feature(0) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
-        if has_feature(5) and sector != 0: db.session.add(Port(type=randrange(0, 5), sector_key=sector))
+        if has_feature(33) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
+        if has_feature(11) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
+        if has_feature(1) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
+        if has_feature(66) and sector != 0:
+            if has_feature(1) and sector in range(1, 5):
+                db.session.add(Port(type=0, sector_key=sector))
+            elif has_feature(66):
+                db.session.add(Port(type=randrange(1, 3), sector_key=sector))
+            else:
+                db.session.add(Port(type=randrange(3, 5), sector_key=sector))
 
     commit_try()
 
 
 def has_feature(cutoff):
-    rand_num = randrange(9)
+    rand_num = randrange(99)
     return False if rand_num > cutoff else True
 
 
