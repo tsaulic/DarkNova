@@ -21,7 +21,7 @@ def play():
     ship_name = None
     player_exists = None
 
-    if scheduler_get_remaining_time() > 1000:
+    if scheduler_get_remaining_time() > 80000:
         scheduler_start()
 
     if 'player_name' in session:
