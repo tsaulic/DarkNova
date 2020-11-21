@@ -1,6 +1,6 @@
 DarkNova is a re-write of BlackNova Traders © 2000-2020 Ron Harwood & the BNT Dev team
 
-This version is written in Python for backend, utilising Flask for the serving the content.
+This version is written in Python for backend, utilising Flask for serving the content.
 We're aiming for the content to be as modern as possible, but also simple. Pure CSS/HTML with minimal JavaScript for client.
 
 TODO (way too much, but still, here's a list in a rough order of priority):
