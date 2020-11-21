@@ -11,6 +11,28 @@
             crossorigin="anonymous">
 
     </script>
+    <script>
+        function updateInitial(_start) {
+            let seconds = $('.scheduler-seconds');
+            if (_start <= 0) {
+                seconds.html("&#128119;");
+            } else {
+                seconds.html(_start);
+            }
+        }
+
+        function schedulerTicker(_start, _max) {
+            let seconds = $('.scheduler-seconds');
+            setInterval(function () {
+                if (--_start <= 0) {
+                    seconds.html("&#128119;");
+                    _start = _max;
+                } else {
+                    seconds.html(_start);
+                }
+            }, 1000);
+        }
+    </script>
 </head>
 <body>
 <div class="background-container">

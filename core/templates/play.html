@@ -48,7 +48,7 @@
         {% endif %}
     </div>
     <div class="action-column">
-        <div class="scheduler">Next update in: {{ scheduler }}</div>
+        <div class="scheduler">Next update in: <span class="scheduler-seconds"></span></div>
         {% if sector is not none and sector.id > 0 %}
             <button type="button" class="button move" onclick="window.location='/play?move={{ sector.id - 1 }}'">
                 Previous
@@ -72,4 +72,8 @@
         </div>
         <button type="button" class="button logout" onclick="window.location='/logout'">Logout</button>
     </div>
+    <script>
+        updateInitial({{ scheduler_update_in }});
+        schedulerTicker({{ scheduler_update_in }}, {{ scheduler_interval }});
+    </script>
 {% endblock %}

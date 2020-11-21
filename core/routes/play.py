@@ -2,7 +2,7 @@ import flask
 from flask import render_template, request, session, redirect, url_for, Blueprint
 from sqlalchemy import exc
 
-from configuration import version
+from configuration import version, scheduler_interval_seconds
 from core import db
 from core.actions.capture import capture
 from core.actions.move import move
@@ -96,5 +96,6 @@ def play():
         planets=sorted(planets, key=lambda planet: planet.id, reverse=True),
         port=port,
         visible_players=players_in_sector,
-        scheduler=scheduler_get_remaining_time()
+        scheduler_update_in=scheduler_get_remaining_time(),
+        scheduler_interval=scheduler_interval_seconds
     )

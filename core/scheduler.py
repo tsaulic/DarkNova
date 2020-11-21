@@ -18,7 +18,9 @@ def update():
             elif player.turns + turns_to_add > turns_limit_amount:
                 player.turns = turns_limit_amount
             else:
-                player.turns += round(turns_tick_amount * factor)
+                if turns_to_add < 1:
+                    turns_to_add = 1
+                player.turns += turns_to_add
 
     commit_try()
 
