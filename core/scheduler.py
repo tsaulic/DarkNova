@@ -1,5 +1,6 @@
 import time
 from datetime import datetime
+from threading import Thread
 
 import schedule
 
@@ -39,3 +40,8 @@ def scheduler_get_remaining_time():
     time_now = datetime.now()
 
     return (time_of_next_run - time_now).seconds
+
+
+def scheduler_start_on_bg_thread():
+    background_thread = Thread(target=scheduler_start)
+    background_thread.start()

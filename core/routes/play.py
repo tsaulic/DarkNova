@@ -9,7 +9,7 @@ from core.actions.move import move
 from core.models import Player
 from core.models import Sector
 from core.routes.populate import insert_player
-from core.scheduler import scheduler_get_remaining_time, scheduler_start
+from core.scheduler import scheduler_get_remaining_time
 
 bp = Blueprint('play', __name__)
 
@@ -20,9 +20,6 @@ def play():
     players_in_sector = None
     ship_name = None
     player_exists = None
-
-    if scheduler_get_remaining_time() > 80000:
-        scheduler_start()
 
     if 'player_name' in session:
         player_name = session['player_name']

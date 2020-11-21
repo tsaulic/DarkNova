@@ -23,3 +23,9 @@ app.register_blueprint(logout.bp)
 app.register_blueprint(play.bp)
 app.register_blueprint(populate.bp)
 app.register_blueprint(schedule.bp)
+
+from core.scheduler import scheduler_start_on_bg_thread
+
+# always start the scheduler with the app, as gunicorn will re-start the app if no requests are made to it within a
+# specified timeout
+scheduler_start_on_bg_thread()
