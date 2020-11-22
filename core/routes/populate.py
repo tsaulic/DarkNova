@@ -6,7 +6,7 @@ from sqlalchemy import exc
 
 from configuration import sectors_default_amount, turns_start_amount
 from core import db
-from core.models import Player, Planet, Sector, Port
+from core.models import Player, Planet, Sector, Port, Link
 from core.util import commit_try
 
 bp = Blueprint('populate', __name__)
@@ -40,12 +40,30 @@ def populate_mock_db(sectors_value):
 
     commit_try()
 
+    db.session.add(Link(to=1, sector_key=0))
     for sector in range(1, sectors_value):
+        # create each sector
         db.session.add(Sector(id=sector, name=''))
 
-        if has_feature(33) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
-        if has_feature(11) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
-        if has_feature(1) and sector != 0: db.session.add(Planet(name='Unowned', sector_key=sector))
+        # add sector mandatory initial warp links
+        db.session.add(Link(to=sector - 1, sector_key=sector))
+        if sector != sectors_value: db.session.add(Link(to=sector + 1, sector_key=sector))
+
+        # add up to 10 more random links
+        for link_to in range(0, 9):
+            link = randrange(0, sectors_value)
+            if has_feature(33) and sector != link:
+                db.session.add(Link(to=link, sector_key=sector))
+
+        # add planets
+        if has_feature(33) and sector != 0:
+            db.session.add(Planet(name='Unowned', sector_key=sector))
+        if has_feature(11) and sector != 0:
+            db.session.add(Planet(name='Unowned', sector_key=sector))
+        if has_feature(1) and sector != 0:
+            db.session.add(Planet(name='Unowned', sector_key=sector))
+
+        # add ports
         if has_feature(66) and sector != 0:
             if has_feature(1) and sector in range(1, 5):
                 db.session.add(Port(type=0, sector_key=sector))

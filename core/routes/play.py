@@ -10,8 +10,16 @@ from core.models import Player
 from core.models import Sector
 from core.routes.populate import insert_player
 from core.scheduler import scheduler_get_remaining_time
+from core.strings import warp_links_title, warp_links_alt
 
 bp = Blueprint('play', __name__)
+
+strings = {}
+
+
+def initialize_strings():
+    strings['warp_links_title'] = warp_links_title
+    strings['warp_links_alt'] = warp_links_alt
 
 
 @bp.route('/play')
@@ -20,6 +28,8 @@ def play():
     players_in_sector = None
     ship_name = None
     player_exists = None
+
+    initialize_strings()
 
     if 'player_name' in session:
         player_name = session['player_name']
@@ -45,6 +55,7 @@ def play():
     if 'ship_name' in session:
         ship_name = session['ship_name']
 
+    # this is here until proper account and sessions are implemented
     if not player_exists and player_name is not None and ship_name is not None:
         insert_player(player_name, ship_name)
 
@@ -87,13 +98,15 @@ def play():
     return render_template(
         'play.html',
         title='DarkNova version: {}'.format(version),
+        strings=strings,
         status='Playing as {} aboard {}; Turns available: {}'.format(
             active_player.username,
             active_player.ship_name,
             active_player.turns),
         player=active_player,
         sector=active_sector,
-        planets=sorted(planets, key=lambda planet: planet.id, reverse=True),
+        links=sorted(active_sector.links, key=lambda link: link.to, reverse=False),
+        planets=sorted(planets, key=lambda planet: planet.id, reverse=False),
         port=port,
         visible_players=players_in_sector,
         scheduler_update_in=scheduler_get_remaining_time(),

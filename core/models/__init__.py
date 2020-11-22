@@ -36,6 +36,7 @@ class Sector(db.Model):
         return {
             'id': self.id,
             'name': self.name,
+            'links': [link.to for link in self.links],
             'players': [player.username for player in self.players],
             'planets': [planet.name for planet in self.planets],
             'ports': [PortType(port.id).name for port in self.ports]
@@ -43,6 +44,22 @@ class Sector(db.Model):
 
     def __repr__(self):
         return '<Sector %r with players: %r>' % (self.name, self.players)
+
+
+class Link(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    to = db.Column(db.Integer, unique=False, nullable=False)
+    sector_key = db.Column(db.Integer, db.ForeignKey('sector.id'), nullable=False)
+    sector = db.relationship('Sector', backref=db.backref('links', lazy=True))
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'sector': self.sector.id,
+        }
+
+    def __repr__(self):
+        return '<Link to %r in sector: %r' % (self.to, self.sector)
 
 
 class Planet(db.Model):

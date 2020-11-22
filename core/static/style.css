@@ -3,6 +3,11 @@ body {
     display: flex;
 }
 
+ol {
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
+}
+
 .content {
     position: absolute;
     display: flex;
@@ -19,7 +24,7 @@ body {
     display: inline-block;
     font-size: 0.7em;
     flex: 1;
-    margin: 0.5em;
+    margin: 0.6em;
     max-height: 2em;
     height: 2em;
 }
@@ -68,6 +73,7 @@ body {
     margin-right: 0.5em;
     flex: 0 0 16em;
     display: flex;
+    justify-content: flex-start;
 }
 
 .column {
@@ -127,11 +133,31 @@ body {
     display: flex;
     align-self: center;
     font-size: 1.2em;
-    flex: 1;
 }
 
 .label.move {
     width: 6em;
+}
+
+.links-container {
+    display: flex;
+}
+
+.links li {
+    list-style-type: none;
+}
+
+.links li a {
+    font-weight: bold;
+    color: chartreuse;
+    font-size: 1.2em;
+}
+
+.links-title {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 0.4em;
+    margin-bottom: 0.4em;
 }
 
 .scheduler {
@@ -141,7 +167,6 @@ body {
     text-decoration: none;
     display: inline-block;
     font-size: 1.2em;
-    flex: 1;
     margin: 0.5em;
     max-height: 2em;
     height: auto;
