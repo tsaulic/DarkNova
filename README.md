@@ -1,15 +1,16 @@
 DarkNova is a re-write of BlackNova Traders © 2000-2020 Ron Harwood & the BNT Dev team
 
 This version is written in Python for backend, utilising Flask for serving the content.
-We're aiming for the content to be as modern as possible, but also simple. Pure CSS/HTML with minimal JavaScript for client.
+I'm aiming for the UI to be as modern as possible, but also simple. Pure CSS/HTML with minimal JavaScript for client.
 
 **TODO** (way too much, but still, here's a list in a rough order of priority):
 
  * ship modules/credits
+ * special port shop
  * manual trading in ports
  * real-space movement which is dependent on engine level and universe size
  * trade routes; warp/real-space trading using the routes
- * planet bases
+ * planet bases and resources
  * handle planets resources in update scheduler
  * ship to ship combat
  * ship to planet combat
@@ -17,9 +18,9 @@ We're aiming for the content to be as modern as possible, but also simple. Pure 
  * alliances
  * IGB
  * news
- * chatbox (may not allow if too much spam is posted)
  * rankings with online status/efficiency
  * more stuff coming, there's just so much
+ * chat-box (if I can integrate some anti-spam service)
 
 **DONE**:
 
@@ -41,9 +42,7 @@ We're aiming for the content to be as modern as possible, but also simple. Pure 
  
 How to test it out:
  * run the Flask server
- * navigate to `/populate{?sectors=n}`; use optional sectors parameter to determine how many sectors to create
- * try `/` and whatever you type in you will log in as
- * to move to sector other than previous/next, for now: `/play?move=<sector id>`
- * to take planets `/play?take=<planet id>`
- * `/logout` to kill the simple session
+ * navigate to `/populate{?sectors=n}`; use optional sectors parameter to determine how many sectors to create (default is 1000)
+ * try `/` and whatever player name and ship you use it will created that player for you
+ * `/logout` to kill the simple session or if you want to create a new account for now
  
